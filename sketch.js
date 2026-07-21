@@ -3,6 +3,7 @@ var PIXEL_HEIGHT = 64
 var SCALING_FACTOR = 8
 var BIT_DEPTH = 2
 var INTS_PER_COLUMN = PIXEL_HEIGHT / 32 * BIT_DEPTH
+var MULTICOLOR = true
 
 let pixelData = new Array(PIXEL_WIDTH)
 let color_yellow
@@ -13,9 +14,17 @@ let color_off
 function setup() {
   noLoop();
   this.color_off = color(50)
-  this.color_red = color(170, 50, 50)
-  this.color_green = color(50, 170, 50)
-  this.color_yellow = color(170, 170, 50)
+  if(MULTICOLOR) {
+    this.color_red = color(220, 50, 50)
+    this.color_green = color(50, 170, 50)
+    this.color_yellow = color(230, 170, 50)
+  } else {
+    let orange = color(240, 160, 40)
+    this.color_green = orange
+    this.color_red = orange
+    this.color_yellow = orange
+  }
+
 
   for(let i = 0; i < PIXEL_WIDTH; i++) {
     pixelData[i] = new Array(INTS_PER_COLUMN)
@@ -26,11 +35,20 @@ function setup() {
   createCanvas(PIXEL_WIDTH * SCALING_FACTOR + 2 * SCALING_FACTOR, PIXEL_HEIGHT * SCALING_FACTOR + 2 * SCALING_FACTOR)
   background(20);
 
-  this.setLine("", 0, 1)
+  this.addSubwayLine("", 0, 1)
   this.addDivider(20, 0, 1)
   this.addDivider(PIXEL_HEIGHT - 14, 0, 1)
+  this.addHeadline("Discord Knuffingen")
+  this.addText("über Memes- & Mülltonne", FONT_REGULAR, 30, 21, 1, 1)
+  this.addText("blabla", FONT_REGULAR, 30, 35, 1, 1)
+  this.addText("in 12340 Minuten", FONT_REGULAR, 110, 51, 0, 1)
+  this.addText("Kurzzug", FONT_REGULAR, 30, 51, 1, 0)
 
+  let a = new Date().getTime()
   this.render();
+  let b = new Date().getTime()
+  console.log("Render time (ms):", b - a)
+  console.log("Rendered", PIXEL_HEIGHT * PIXEL_WIDTH, "pixels")
 }
  
 function draw() {
@@ -59,7 +77,7 @@ function render() {
   }
 }
 
-function setLine(text, red, green) {
+function addSubwayLine(text, red, green) {
   this.fillArea(0, 0, 25, 19, red, green)
 
   // U
@@ -88,6 +106,34 @@ function fillArea(x1, y1, x2, y2, red, green) {
       setPixel(i, j, red, green)
     }
   }
+}
+
+function addHeadline(str) {
+  addText(str.toUpperCase(), FONT_HEADLINE, 30, 2, 1, 0)
+}
+
+function addText(str, font, posX, posY, red, green) {
+  offset = 0
+  spacing = font.spacing
+  for(let i = 0; i < str.length; i++) {
+    offset += addChar(str.charAt(i), font, posX + offset + spacing * i, posY, red, green)
+  }
+}
+
+function addChar(c, font, posX, posY, red, green) {
+  if(font[c] == undefined) {
+    c = " "
+  }
+  let charData = font[c].split("\n")
+  let width = charData[0].length
+  for(let row = 0; row < charData.length; row++) {
+    for(let column = 0; column < width; column++) {
+      if(charData[row].charAt(column) == '1') {
+        setPixel(posX + column, posY + row, red, green)
+      }
+    }
+  }
+  return width;
 }
 
 function getPixel(x, y) {
