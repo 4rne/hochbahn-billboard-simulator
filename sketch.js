@@ -51,7 +51,7 @@ function draw() {
   addHeadline(document.getElementById('destination').value)
   addText(document.getElementById('first-line').value, FONT_REGULAR, 5, 21, 1, 1)
   addText(document.getElementById('second-line').value, FONT_REGULAR, 5, 35, 1, 1)
-  addText(document.getElementById('next-train').value, FONT_REGULAR, 110, 51, 0, 1)
+  addTextFloatRight(document.getElementById('next-train').value, FONT_REGULAR, PIXEL_WIDTH - 2, 51, 0, 1)
   if(document.getElementById('kurzzug').checked) {
     addText("Kurzzug", FONT_REGULAR, 30, 51, 1, 0)
   }
@@ -116,6 +116,29 @@ function addText(str, font, posX, posY, red, green) {
   for(let i = 0; i < str.length; i++) {
     offset += addChar(str.charAt(i), font, posX + offset + spacing * i, posY, red, green)
   }
+}
+
+function addTextFloatRight(str, font, endPosX, posY, red, green) {
+  totalWidth = 0
+  for(let i = 0; i < str.length; i++) {
+    totalWidth += getCharWidth(str[i], font);
+  }
+  totalWidth += (str.length - 1) * font.spacing
+  console.log(str, totalWidth)
+  offset = 0
+  spacing = font.spacing
+  for(let i = 0; i < str.length; i++) {
+    offset += addChar(str.charAt(i), font, endPosX + offset + spacing * i - totalWidth, posY, red, green)
+  }
+}
+
+function getCharWidth(c, font) {
+  if(font[c] == undefined) {
+    c = " "
+  }
+  let charData = font[c].split("\n")
+  let width = charData[0].length
+  return width
 }
 
 function addChar(c, font, posX, posY, red, green) {
