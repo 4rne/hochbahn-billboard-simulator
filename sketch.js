@@ -12,6 +12,7 @@ let color_red
 let color_off
 
 function setup() {
+  document.getElementById('submit').addEventListener("click", draw, false)
   noLoop();
   this.color_off = color(50)
   if(MULTICOLOR) {
@@ -25,34 +26,41 @@ function setup() {
     this.color_yellow = orange
   }
 
+  resetPixelData()
+  createCanvas(PIXEL_WIDTH * SCALING_FACTOR + 2 * SCALING_FACTOR, PIXEL_HEIGHT * SCALING_FACTOR + 2 * SCALING_FACTOR)
 
+  draw();
+}
+
+function resetPixelData() {
   for(let i = 0; i < PIXEL_WIDTH; i++) {
     pixelData[i] = new Array(INTS_PER_COLUMN)
     for(let j = 0; j < INTS_PER_COLUMN; j++) {
       pixelData[i][j] = 0
     }
   }
-  createCanvas(PIXEL_WIDTH * SCALING_FACTOR + 2 * SCALING_FACTOR, PIXEL_HEIGHT * SCALING_FACTOR + 2 * SCALING_FACTOR)
+}
+
+function draw() {
+  resetPixelData()
   background(20);
 
-  this.addSubwayLine("", 0, 1)
-  this.addDivider(20, 0, 1)
-  this.addDivider(PIXEL_HEIGHT - 14, 0, 1)
-  this.addHeadline("Discord Knuffingen")
-  this.addText("über Memes- & Mülltonne", FONT_REGULAR, 30, 21, 1, 1)
-  this.addText("blabla", FONT_REGULAR, 30, 35, 1, 1)
-  this.addText("in 12340 Minuten", FONT_REGULAR, 110, 51, 0, 1)
-  this.addText("Kurzzug", FONT_REGULAR, 30, 51, 1, 0)
+  addSubwayLine(document.getElementById('subway-line').value, 0, 1)
+  addDivider(20, 0, 1)
+  addDivider(PIXEL_HEIGHT - 14, 0, 1)
+  addHeadline(document.getElementById('destination').value)
+  addText(document.getElementById('first-line').value, FONT_REGULAR, 5, 21, 1, 1)
+  addText(document.getElementById('second-line').value, FONT_REGULAR, 5, 35, 1, 1)
+  addText(document.getElementById('next-train').value, FONT_REGULAR, 110, 51, 0, 1)
+  if(document.getElementById('kurzzug').checked) {
+    addText("Kurzzug", FONT_REGULAR, 30, 51, 1, 0)
+  }
 
   let a = new Date().getTime()
-  this.render();
+  render();
   let b = new Date().getTime()
   console.log("Render time (ms):", b - a)
   console.log("Rendered", PIXEL_HEIGHT * PIXEL_WIDTH, "pixels")
-}
- 
-function draw() {
-  
 }
 
 function render() {
@@ -80,18 +88,8 @@ function render() {
 function addSubwayLine(text, red, green) {
   this.fillArea(0, 0, 25, 19, red, green)
 
-  // U
-  this.fillArea(5, 2, 7, 16, 0, 0)
-  this.fillArea(10, 2, 12, 16, 0, 0)
-  this.fillArea(5, 15, 12, 16, 0, 0)
-  this.fillArea(6, 16, 11, 17, 0, 0)
-
-  // 1
-  this.fillArea(15, 2, 17, 15, 0, 0)
-  this.fillArea(13, 15, 19, 17, 0, 0)
-  this.setPixel(14, 3, 0, 0)
-  this.setPixel(14, 4, 0, 0)
-  this.setPixel(13, 4, 0, 0)
+  addText(text[0], FONT_HEADLINE, 5, 2, 0, 0)
+  addText(text[1], FONT_HEADLINE, 13, 2, 0, 0)
 }
 
 function addDivider(height, red, green) {

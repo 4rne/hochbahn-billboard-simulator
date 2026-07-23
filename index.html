@@ -10,6 +10,7 @@
       padding: 0;
       margin: 0;
       background-color: #eee;
+      font-family: sans-serif;
     }
   </style>
   <script src="../p5.min.js"></script>
@@ -20,6 +21,58 @@
 <body>
   <main>
   </main>
+  <form onsubmit="return false;">
+  <p>
+    <label for="subway-line">
+      Linie
+    </label>
+    <input type="text" placeholder="Linie" id="subway-line" value="U1" size="5">
+  </p>
+  <p>
+    <label for="destination">
+      Endhaltestelle
+    </label>
+    <input type="text" placeholder="Endhaltestelle" id="destination" value="DSICORD KNUFFINGEN" size="25">
+  </p>
+  </p>
+  <p>
+    <label for="first-line">
+      erste Zeile
+    </label>
+    <input type="text" placeholder="erste Zeile" id="first-line" value="über Memes und Mülltonne" size="25">
+  </p>
+  </p>
+  <p>
+    <label for="second-line">
+      zweite Zeile
+    </label>
+    <input type="text" placeholder="zweite Zeile" id="second-line" value="blabla" size="25">
+  </p>
+  </p>
+  <p>
+    <label for="destination">
+      Endhaltestelle
+    </label>
+    <input type="text" placeholder="Endhaltestelle" id="destination" value="DSICORD KNUFFINGEN" size="25">
+  </p>
+  </p>
+  <p>
+    <label for="next-train">
+      Nächster Zug in
+    </label>
+    <input type="text" placeholder="Nächster Zug in" id="next-train" value="in 12340 Minuten" size="25">
+  </p>
+  <p>
+    <label for="kurzzug">
+      Kurzzug
+    </label>
+    <input type="checkbox" id="kurzzug" checked="checked">
+  </p>
+
+  <p>
+    <input type="submit" value="Änderungen übernehmen" id="submit">
+  </p>
+  </form>
 </body>
 
 </html>
