@@ -49,8 +49,8 @@ function draw() {
   addDivider(20, 0, 1)
   addDivider(PIXEL_HEIGHT - 14, 0, 1)
   addHeadline(document.getElementById('destination').value)
-  addText(document.getElementById('first-line').value, FONT_REGULAR, 5, 21, 1, 1)
-  addText(document.getElementById('second-line').value, FONT_REGULAR, 5, 35, 1, 1)
+  addTextCenter(document.getElementById('first-line').value, FONT_REGULAR, 0, PIXEL_WIDTH, 21, 1, 1)
+  addTextCenter(document.getElementById('second-line').value, FONT_REGULAR, 0, PIXEL_WIDTH, 35, 1, 1)
   addTextFloatRight(document.getElementById('next-train').value, FONT_REGULAR, PIXEL_WIDTH - 2, 51, 0, 1)
   if(document.getElementById('kurzzug').checked) {
     addText("Kurzzug", FONT_REGULAR, 30, 51, 1, 0)
@@ -107,7 +107,7 @@ function fillArea(x1, y1, x2, y2, red, green) {
 }
 
 function addHeadline(str) {
-  addText(str.toUpperCase(), FONT_HEADLINE, 30, 2, 1, 0)
+  addTextCenter(str.toUpperCase(), FONT_HEADLINE, 30, PIXEL_WIDTH, 2, 1, 0)
 }
 
 function addText(str, font, posX, posY, red, green) {
@@ -118,13 +118,26 @@ function addText(str, font, posX, posY, red, green) {
   }
 }
 
+function addTextCenter(str, font, startPosX, endPosX, posY, red, green) {
+  totalWidth = 0
+  for(let i = 0; i < str.length; i++) {
+    totalWidth += getCharWidth(str[i], font);
+  }
+  totalWidth += (str.length - 1) * font.spacing
+  offset = 0
+  spacing = font.spacing
+  for(let i = 0; i < str.length; i++) {
+    offset += addChar(str.charAt(i), font, Math.floor(((endPosX + startPosX) / 2) + offset + spacing * i - totalWidth / 2), posY, red, green)
+  }
+}
+
+
 function addTextFloatRight(str, font, endPosX, posY, red, green) {
   totalWidth = 0
   for(let i = 0; i < str.length; i++) {
     totalWidth += getCharWidth(str[i], font);
   }
   totalWidth += (str.length - 1) * font.spacing
-  console.log(str, totalWidth)
   offset = 0
   spacing = font.spacing
   for(let i = 0; i < str.length; i++) {
