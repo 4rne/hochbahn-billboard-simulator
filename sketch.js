@@ -1,6 +1,6 @@
 var PIXEL_WIDTH = 200
 var PIXEL_HEIGHT = 64
-var SCALING_FACTOR = 8
+var SCALING_FACTOR
 var BIT_DEPTH = 2
 var INTS_PER_COLUMN = PIXEL_HEIGHT / 32 * BIT_DEPTH
 var MULTICOLOR = true
@@ -12,6 +12,7 @@ let color_red
 let color_off
 
 function setup() {
+  SCALING_FACTOR = min(constrain(windowWidth / PIXEL_WIDTH, 1, 8), constrain(windowHeight / PIXEL_HEIGHT, 1, 8)) * 0.98
   document.getElementById('submit').addEventListener("click", draw, false)
   noLoop();
   this.color_off = color(50)
