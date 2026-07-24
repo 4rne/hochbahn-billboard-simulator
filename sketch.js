@@ -55,6 +55,18 @@ function draw() {
   if(document.getElementById('kurzzug').checked) {
     addText("Kurzzug", FONT_REGULAR, 28, 51, 1, 0)
   }
+  let deadPixelAmount = Math.round(document.getElementById('dead-pixels').value / 10)
+  if(deadPixelAmount > 0) {
+    deadPixels = PIXEL_HEIGHT * PIXEL_WIDTH * deadPixelAmount / 100
+    for(let i = 0; i < deadPixels; i++) {
+      setPixel(Math.floor(random(0, PIXEL_WIDTH)), Math.floor(random(0, PIXEL_HEIGHT)), 0, 0)
+    }
+    for(let i = 0; i < Math.floor(deadPixels / 100); i++) {
+      let red = Math.round(random())
+      let green = 1 - red
+      setPixel(Math.floor(random(0, PIXEL_WIDTH)), Math.floor(random(0, PIXEL_HEIGHT)), red, green)
+    }
+  }
 
   let a = new Date().getTime()
   render();
