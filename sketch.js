@@ -45,7 +45,22 @@ function draw() {
   resetPixelData()
   background(20);
 
-  addSubwayLine(document.getElementById('subway-line').value, 0, 1)
+  let subwayColor = document.getElementById('subway-color').value;
+  let subwayColorGreen = 0;
+  let subwayColorRed = 0;
+  if(subwayColor == "green") {
+    subwayColorGreen = 1;
+    subwayColorRed = 0;
+  } else if(subwayColor == "red") {
+    subwayColorGreen = 0;
+    subwayColorRed = 1;
+  } else if(subwayColor == "orange") {
+    subwayColorGreen = 1;
+    subwayColorRed = 1;
+  }
+
+
+  addSubwayLine(document.getElementById('subway-line').value, subwayColorRed, subwayColorGreen)
   addDivider(20, 0, 1)
   addDivider(PIXEL_HEIGHT - 14, 0, 1)
   addHeadline(document.getElementById('destination').value)
