@@ -51,9 +51,9 @@ function draw() {
   addHeadline(document.getElementById('destination').value)
   addTextCenter(document.getElementById('first-line').value, FONT_REGULAR, 0, PIXEL_WIDTH, 21, 1, 1)
   addTextCenter(document.getElementById('second-line').value, FONT_REGULAR, 0, PIXEL_WIDTH, 35, 1, 1)
-  addTextFloatRight(document.getElementById('next-train').value, FONT_REGULAR, PIXEL_WIDTH - 2, 51, 0, 1)
+  addTextFloatRight(document.getElementById('next-train').value, FONT_REGULAR, PIXEL_WIDTH - 15, 51, 0, 1)
   if(document.getElementById('kurzzug').checked) {
-    addText("Kurzzug", FONT_REGULAR, 30, 51, 1, 0)
+    addText("Kurzzug", FONT_REGULAR, 28, 51, 1, 0)
   }
 
   let a = new Date().getTime()
