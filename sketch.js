@@ -205,6 +205,9 @@ function getPixel(x, y) {
 }
 
 function setPixel(x, y, red, green) {
+  if(x < 0 || y < 0 || x >= PIXEL_WIDTH || y >= PIXEL_HEIGHT || x.toString().indexOf('.') != -1 || y.toString().indexOf('.') != -1) {
+    return
+  }
   pixelData[x][y / INTS_PER_COLUMN] = pixelData[x][y / INTS_PER_COLUMN] & (0 << (y % INTS_PER_COLUMN));
   pixelData[x][y / INTS_PER_COLUMN] = pixelData[x][y / INTS_PER_COLUMN] & (0 << (y % INTS_PER_COLUMN) + 1)
   pixelData[x][y / INTS_PER_COLUMN] = pixelData[x][y / INTS_PER_COLUMN] | (constrain(red, 0, 1) << (y % INTS_PER_COLUMN));
